@@ -1,0 +1,156 @@
+.news {
+   min-height: 100vh;
+   padding: 2rem 0;
+   background-color: #f8f9fa;
+}
+
+.bottomButtons {
+   display: flex;
+   justify-content: center;
+   position: relative;
+}
+
+.bottomButtons > button:last-of-type {
+   position: absolute;
+   right: 0;
+}
+
+.newsHeader {
+   margin-bottom: 2rem;
+}
+
+.newsHeader h2 {
+   color: #5e94ca;
+   font-weight: bold;
+   margin-bottom: 1.5rem;
+   text-align: center;
+}
+
+.newsTabs {
+   border-bottom: 2px solid #dee2e6;
+   justify-content: center;
+}
+
+.tabLink {
+   color: #666 !important;
+   font-weight: 500;
+   border: none !important;
+   background: none !important;
+   padding: 1rem 2rem;
+   transition: all 0.3s ease;
+}
+
+.tabLink:global(.active) {
+   color: #5e94ca !important;
+   border-bottom: 3px solid #5e94ca !important;
+   background: none !important;
+}
+
+.tabLink:hover {
+   color: #5e94ca !important;
+   border: none !important;
+}
+
+.newsCard {
+   margin-bottom: 2rem;
+   border: none;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   border-radius: 12px;
+   overflow: hidden;
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   height: auto;
+   min-height: 200px;
+}
+
+.newsCard:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.newsMeta {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 1rem;
+}
+
+.readMoreBtn {
+   border-color: #5e94ca;
+   color: #5e94ca;
+   font-weight: 500;
+   align-self: flex-start;
+   transition: all 0.3s ease;
+}
+
+.readMoreBtn:hover {
+   background-color: #5e94ca;
+   border-color: #5e94ca;
+   color: white;
+}
+
+/* 반응형 */
+@media (max-width: 767.98px) {
+   .news {
+      padding: 1rem 0;
+   }
+
+   .newsHeader h2 {
+      font-size: 1.75rem;
+   }
+
+   .newsTabs {
+      flex-direction: column;
+   }
+
+   .tabLink {
+      text-align: center;
+      padding: 0.75rem 1rem;
+   }
+
+   .newsCard {
+      margin-bottom: 1.5rem;
+   }
+
+   .newsCard .row {
+      flex-direction: column;
+   }
+
+   .newsBody {
+      height: auto;
+      min-height: 150px;
+   }
+
+   .bottomButtons > .loadMoreBtn {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+   }
+
+   .bottomButtons > .scrollTopBtn {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.8rem;
+   }
+}
+
+@media (max-width: 575.98px) {
+   .newsCard {
+      margin-bottom: 1rem;
+   }
+
+   .newsBody {
+      padding: 1rem;
+      min-height: 120px;
+   }
+
+   .newsMeta {
+      margin-bottom: 0.75rem;
+   }
+
+   .bottomButtons {
+      flex-direction: column;
+      gap: 0.3rem;
+   }
+
+   .bottomButtons > button:nth-last-of-type(1) {
+      position: static;
+   }
+}
