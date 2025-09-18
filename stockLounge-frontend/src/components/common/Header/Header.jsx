@@ -1,103 +1,94 @@
 import { useState } from 'react'
-import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../hooks/useAuth'
-import LoginModal from '../../auth/LoginModal'
-import styles from '../../../styles/components/common/Header.module.css'
+import { NavLink } from 'react-router-dom'
+import { Menu, X, User, TrendingUp } from 'lucide-react'
+import './Header.css'
+import { ROUTES } from '../../../config/routes';
 
 const Header = () => {
-   const [showLoginModal, setShowLoginModal] = useState(false)
-   const { user, isAuthenticated, logout } = useAuth()
-   const navigate = useNavigate()
+   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-   const handleLoginClick = () => {
-      setShowLoginModal(true)
-   }
-
-   const handleCloseModal = () => {
-      setShowLoginModal(false)
-   }
-
-   const handleLogout = async () => {
-      await logout()
-      navigate('/')
+   const toggleMenu = () => {
+      setIsMenuOpen(!isMenuOpen)
    }
 
    return (
-      <>
-         <Navbar bg="light" expand="lg" fixed="top" className={styles.navbar} style={{ backgroundColor: '#F7FAFC' }}>
-            <Container>
-               <Navbar.Brand as={Link} to="/" className={styles.brand}>
-                  📈 StockLounge
-               </Navbar.Brand>
-
-               <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
-               <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="me-auto">
-                     <Nav.Link as={Link} to="/">
-                        메인
-                     </Nav.Link>
-                     <Nav.Link as={Link} to="/board">
+      <header className="header">
+         <div className="container">
+            <div className="header-content">
+               <div className="header-left">
+                  {/* Logo */}
+                  <NavLink to={ROUTES.HOME} className="logo">
+                     <TrendingUp size={28} />
+                     <span>STOCKLOUNGE</span>
+                  </NavLink>
+                  {/* Desktop Navigation */}
+                  <nav className="nav">
+                     <NavLink to={ROUTES.MAIN} className="nav-link" end>
+                        Home
+                     </NavLink>
+                     <NavLink to={ROUTES.BOARD} className="nav-link">
                         게시판
-                     </Nav.Link>
-                     <Nav.Link as={Link} to="/chart">
+                     </NavLink>
+                     <NavLink to={ROUTES.CHART} className="nav-link">
                         차트
-                     </Nav.Link>
-                     <Nav.Link as={Link} to="/news">
+                     </NavLink>
+                     <NavLink to={ROUTES.NEWS} className="nav-link">
                         뉴스
-                     </Nav.Link>
-                     {isAuthenticated && (
-                        <Nav.Link as={Link} to="/user">
-                           내정보
-                        </Nav.Link>
-                     )}
-                  </Nav>
+                     </NavLink>
+                     <NavLink to={ROUTES.USER_INFO} className="nav-link">
+                        내정보
+                     </NavLink>
+                  </nav>
+               </div>
+               <div className="header-right">
+                  {/* User Menu */}
+                  <div className="user-menu">
+                     <NavLink to="/profile" className="user-btn">
+                        <User size={20} />
+                     </NavLink>
+                     <NavLink to="/rewards" className="rewards-btn">
+                        <span className="coin-icon">🪙</span>
+                        <span>1,500</span>
+                     </NavLink>
+                  </div>
+                  {/* Mobile Menu Button */}
+                  <button className="mobile-menu-btn" onClick={toggleMenu} aria-label="메뉴 열기/닫기">
+                     {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                  </button>
+               </div>
+            </div>
 
-                  <Nav>
-                     {!isAuthenticated ? (
-                        <div className={styles.authButtons}>
-                           <Button variant="outline-primary" className={styles.loginBtn} onClick={handleLoginClick}>
-                              로그인
-                           </Button>
-                           <Button variant="primary" className={styles.registerBtn} style={{ backgroundColor: '#5E94CA', borderColor: '#5E94CA' }}>
-                              회원가입
-                           </Button>
-                        </div>
-                     ) : (
-                        <div className={styles.userInfo}>
-                           <Dropdown align="end">
-                              <Dropdown.Toggle variant="link" className={styles.userDropdown}>
-                                 <img src="/default-profile.png" alt="프로필" className={styles.profileImage} />
-                                 <span className={styles.nickname}>{user?.nickname || '사용자'}</span>
-                              </Dropdown.Toggle>
-                              <Dropdown.Menu>
-                                 <Dropdown.Item as={Link} to="/user">
-                                    내정보
-                                 </Dropdown.Item>
-                                 <Dropdown.Item as={Link} to="/user/posts">
-                                    내 게시글
-                                 </Dropdown.Item>
-                                 <Dropdown.Divider />
-                                 <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
-                              </Dropdown.Menu>
-                           </Dropdown>
-                        </div>
-                     )}
-                  </Nav>
-               </Navbar.Collapse>
-            </Container>
-         </Navbar>
-
-         <LoginModal
-            show={showLoginModal}
-            onHide={handleCloseModal}
-            onLogin={() => {
-               setShowLoginModal(false)
-               window.location.reload()
-            }}
-         />
-      </>
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+               <div className="mobile-menu">
+                  <NavLink to={ROUTES.MAIN} className="mobile-nav-link" onClick={toggleMenu} end>
+                     Home
+                  </NavLink>
+                  <NavLink to={ROUTES.BOARD} className="mobile-nav-link" onClick={toggleMenu}>
+                     게시판
+                  </NavLink>
+                  <NavLink to={ROUTES.CHART} className="mobile-nav-link" onClick={toggleMenu}>
+                     차트
+                  </NavLink>
+                  <NavLink to={ROUTES.NEWS} className="mobile-nav-link" onClick={toggleMenu}>
+                     뉴스
+                  </NavLink>
+                  <NavLink to={ROUTES.USER_INFO} className="mobile-nav-link" onClick={toggleMenu}>
+                     내정보
+                  </NavLink>
+                  <div className="mobile-user-menu">
+                     <NavLink to="/profile" className="mobile-nav-link" onClick={toggleMenu}>
+                        <User size={18} />
+                        프로필
+                     </NavLink>
+                     <NavLink to="/rewards" className="mobile-nav-link" onClick={toggleMenu}>
+                        🪙 리워드 (1,500)
+                     </NavLink>
+                  </div>
+               </div>
+            )}
+         </div>
+      </header>
    )
 }
 

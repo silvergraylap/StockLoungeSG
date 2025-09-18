@@ -2,7 +2,7 @@
 export const ROUTES = {
   // 공통 페이지
   HOME: '/',
-  HOME_MAIN: '/home',
+  MAIN: '/home',
   LOGIN: '/login',
   REGISTER: '/register',
   
@@ -45,8 +45,8 @@ export const ROUTES = {
 // 네비게이션 메뉴
 export const NAV_ITEMS = [
   {
-    path: ROUTES.HOME,
-    label: '메인',
+    path: ROUTES.MAIN,
+    label: 'Home',
     icon: '🏠',
     public: true
   },
@@ -130,7 +130,8 @@ export const ADMIN_ROUTES = [
 
 // 페이지 타이틀 매핑
 export const PAGE_TITLES = {
-  [ROUTES.HOME]: '코잘알 - 코인 커뮤니티',
+  [ROUTES.HOME]: 'Welcome - StockLounge',
+  [ROUTES.MAIN]: 'Home - StockLounge',
   [ROUTES.LOGIN]: '로그인 - 코잘알',
   [ROUTES.REGISTER]: '회원가입 - 코잘알',
   [ROUTES.BOARD]: '게시판 - 코잘알',
